@@ -161,3 +161,12 @@ hello   NodePort   10.43.111.38   <none>        80:31361/TCP   2m4s
 ```
 
 any of the ips in the cluster and using the port bound to 80 will show the traffic!
+
+
+but isntead of doing it that way, lets do it decalrativly
+
+```
+kubectl apply -f apps/hello/hello.yaml
+```
+
+look at apps/hello directory for the yaml!
