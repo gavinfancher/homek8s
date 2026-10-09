@@ -66,3 +66,26 @@ get the data from the wn/ config file and fill in the appropriate info
 curl -sfL https://get.k3s.io -o k3s-install.sh
 sudo INSTALL_K3S_EXEC=agent sh k3s-install.sh
 ```
+
+
+check on the cp that all the installed nodes are being detected
+```
+sudo k3s kubectl get nodes
+```
+
+on mac run the following ot get gp node connect info
+```
+mkdir -p ~/.kube
+ssh ubuntu@k8s-cp 'sudo cat /etc/rancher/k3s/k3s.yaml' > ~/.kube/config
+chmod 600 ~/.kube/config
+nvim ~/.kube/config
+```
+
+replace `127.0.0.1` with the tailscale ip so we can reach it remotely
+
+
+
+rename from default to `homek8s`
+```
+kubectl config rename-context default homek8s
+```
