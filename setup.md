@@ -12,3 +12,10 @@ devices
 - `k8s-cp` = `10.0.0.90`
 - `k8s-w1` = `10.0.0.67`
 - `k8s-w2` = `10.0.0.250`
+
+```
+sudo nvim /etc/fstab
+```
+
+comment out the swap line
+(the vm does not have swap enabled)

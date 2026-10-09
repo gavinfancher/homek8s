@@ -1,0 +1,8 @@
+node-ip: LAN-ip
+
+tls-san:
+  - LAN-ip
+  - tailscale-ip
+
+node-taint:
+  - CriticalAddonsOnly=true:NoExecute
