@@ -170,3 +170,11 @@ kubectl apply -f apps/hello/hello.yaml
 ```
 
 look at apps/hello directory for the yaml!
+
+
+
+now to add dns
+
+in tailscale add a split dns entry of `k8s.gavinf.com`
+
+
