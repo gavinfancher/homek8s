@@ -196,3 +196,9 @@ curl http://hello.k8s.ad.gavinf.com
 ```
 
 
+
+updates to pull from container on ghcr, built with gh actions 
+```
+kubectl appy -f apps/hello-with-traefik.yaml
+kubectl rollout restart deploy/hello -n nginxtest
+```
