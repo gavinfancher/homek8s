@@ -179,12 +179,13 @@ now to add dns
 dns is served by active directory on `dc01.ad.gavinf.com` (`10.0.4.200`), and tailscale
 has a split dns entry sending `ad.gavinf.com` to it. apps live under `*.k8s.ad.gavinf.com`.
 
-on the domain controller, add a wildcard pointing at the workers (traefik listens on every node):
+on the domain controller, add a wildcard pointing at the control plane. servicelb runs on every
+node (including the cp, despite the taint) and forwards to the traefik pods on the workers:
 ```
-Add-DnsServerResourceRecordA -ZoneName "ad.gavinf.com" -Name "*.k8s" -IPv4Address 10.0.4.21
-Add-DnsServerResourceRecordA -ZoneName "ad.gavinf.com" -Name "*.k8s" -IPv4Address 10.0.4.22
-Add-DnsServerResourceRecordA -ZoneName "ad.gavinf.com" -Name "*.k8s" -IPv4Address 10.0.4.23
+Add-DnsServerResourceRecordA -ZoneName "ad.gavinf.com" -Name "*.k8s" -IPv4Address 10.0.4.20
 ```
+the dc and the cp share the same pve host, so pointing at the cp adds no new failure point. the
+tradeoff: rebooting just the cp vm takes ingress down even though the workers are still serving.
 
 then deploy the traefik version of the app and check it
 ```
