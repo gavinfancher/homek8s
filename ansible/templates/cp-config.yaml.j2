@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+node-ip: {{ ansible_host }}
+
+tls-san:
+  - {{ ansible_host }}
+  - {{ tailscale_ip.stdout }}
+
+node-taint:
+  - CriticalAddonsOnly=true:NoExecute

@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+{% set cp = hostvars[groups['cp'][0]] %}
+server: https://{{ cp.ansible_host }}:6443
+token: {{ cp.node_token.content | b64decode | trim }}
+node-ip: {{ ansible_host }}
