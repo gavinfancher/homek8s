@@ -1,0 +1,19 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: cert-manager
+  namespace: kube-system      # k3s's helm controller watches this namespace
+spec:
+  repo: https://charts.jetstack.io
+  chart: cert-manager
+  version: v1.21.2
+  targetNamespace: cert-manager
+  createNamespace: true
+  valuesContent: |-
+    crds:
+      enabled: true
+    extraArgs:
+      # check the dns01 TXT record against public resolvers. the cluster's resolver is dc01,
+      # which is authoritative for ad.gavinf.com and will never see the record cloudflare serves.
+      - --dns01-recursive-nameservers-only
+      - --dns01-recursive-nameservers=1.1.1.1:53,8.8.8.8:53

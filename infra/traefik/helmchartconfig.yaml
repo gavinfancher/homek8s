@@ -7,6 +7,14 @@ spec:
   valuesContent: |-
     deployment:
       replicas: 2
+    ports:
+      web:
+        http:
+          redirections:
+            entryPoint:       # send every http request to https
+              to: websecure
+              scheme: https
+              permanent: true
     topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
