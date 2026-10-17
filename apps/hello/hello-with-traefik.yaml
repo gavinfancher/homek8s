@@ -20,7 +20,8 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx:1.29-alpine
+          image: ghcr.io/gavinfancher/hello:latest
+          imagePullPolicy: Always   # re-pull :latest on every pod start
           ports:
             - containerPort: 80
 ---
@@ -47,7 +48,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-    - host: hello.ad.gavinf.com
+    - host: hello.k8s.ad.gavinf.com
       http:
         paths:
           - path: /
