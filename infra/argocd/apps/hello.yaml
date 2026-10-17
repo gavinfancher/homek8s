@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hello
+  namespace: argocd              # Applications always live in Argo's namespace
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/gavinfancher/homek8s.git
+    targetRevision: main         # branch to follow
+    path: apps/hello/k8s         # only this folder
+  destination:
+    server: https://kubernetes.default.svc   # "the cluster Argo runs in"
+    namespace: nginxtest
+  syncPolicy:
+    automated:
+      prune: true                # delete things you remove from git
+      selfHeal: true             # undo changes made with kubectl
