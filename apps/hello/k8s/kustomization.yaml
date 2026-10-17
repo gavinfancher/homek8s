@@ -2,4 +2,4 @@ resources:
   - hello.yaml
 images:
   - name: ghcr.io/gavinfancher/hello
-    newTag: sha-467a500
+    newTag: sha-128f35a
