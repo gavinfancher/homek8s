@@ -1,11 +1,15 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>gavin's k8s cluster</title>
   <style>
-    :root { color-scheme: light dark; }
+    :root {
+      color-scheme: light dark;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
@@ -15,17 +19,35 @@
       background: #0f172a;
       color: #e2e8f0;
     }
-    main { padding: 2rem; max-width: 40rem; }
-    h1 { font-size: 2rem; margin: 0 0 1rem; color: #38bdf8; }
-    p { line-height: 1.6; }
-    code { color: #fbbf24; }
+
+    main {
+      padding: 2rem;
+      max-width: 40rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin: 0 0 1rem;
+      color: #38bdf8;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    code {
+      color: #fbbf24;
+    }
   </style>
 </head>
+
 <body>
   <main>
     <h1>welcome to gavin's k8s cluster</h1>
     <p>served by pod <code><!--# echo var="hostname" --></code></p>
     <p>refresh a few times to watch traefik spread requests across the replicas.</p>
+    <p>deployed by argo cd 🚀</p>
   </main>
 </body>
+
 </html>
