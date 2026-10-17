@@ -30,10 +30,33 @@ metadata:
   name: hello
   namespace: nginxtest
 spec:
-  type: NodePort          # this line is what the patch changed
+  type: ClusterIP
   selector:
     app: hello
   ports:
     - port: 80            # the Service's port inside the cluster
       targetPort: 80      # the container's port
-      nodePort: 30303     # optional: pin it instead of getting a random one
+
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello
+  namespace: nginxtest
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: hello.k8s.ad.gavinf.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hello
+                port:
+                  number: 80
+
+
+

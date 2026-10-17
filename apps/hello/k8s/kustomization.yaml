@@ -1,0 +1,5 @@
+resources:
+  - hello.yaml
+images:
+  - name: ghcr.io/gavinfancher/hello
+    newTag: latest
