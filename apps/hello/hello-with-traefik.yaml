@@ -30,7 +30,7 @@ metadata:
   name: hello
   namespace: nginxtest
 spec:
-  type: ClusterIP          # this line is what the patch changed
+  type: ClusterIP
   selector:
     app: hello
   ports:
@@ -47,7 +47,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-    - host: hello.k8s.gavinf.com
+    - host: hello.ad.gavinf.com
       http:
         paths:
           - path: /

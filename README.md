@@ -176,6 +176,22 @@ look at apps/hello directory for the yaml!
 
 now to add dns
 
-in tailscale add a split dns entry of `k8s.gavinf.com`
+dns is served by active directory on `dc01.ad.gavinf.com` (`10.0.4.200`), and tailscale
+has a split dns entry sending `ad.gavinf.com` to it. apps live under `*.k8s.ad.gavinf.com`.
+
+on the domain controller, add a wildcard pointing at the workers (traefik listens on every node):
+```
+Add-DnsServerResourceRecordA -ZoneName "ad.gavinf.com" -Name "*.k8s" -IPv4Address 10.0.4.21
+Add-DnsServerResourceRecordA -ZoneName "ad.gavinf.com" -Name "*.k8s" -IPv4Address 10.0.4.22
+Add-DnsServerResourceRecordA -ZoneName "ad.gavinf.com" -Name "*.k8s" -IPv4Address 10.0.4.23
+```
+
+then deploy the traefik version of the app and check it
+```
+kubectl apply -f infra/traefik/helmchartconfig.yaml
+kubectl apply -f apps/hello/hello-with-traefik.yaml
+dig +short hello.k8s.ad.gavinf.com
+curl http://hello.k8s.ad.gavinf.com
+```
 
 
