@@ -1,0 +1,16 @@
+# the nginx image runs envsubst on /etc/nginx/templates/*.template at startup and writes the
+# result to /etc/nginx/conf.d/, so ${GREETING} below becomes the pod's env var. only vars that
+# are actually set get replaced, so nginx's own $variables are left alone.
+server {
+    listen 80;
+    server_name _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # server-side includes, so index.html can print the pod's hostname and the greeting
+    ssi on;
+
+    # GREETING comes from the hello-secrets Secret, which the infisical operator syncs
+    set $greeting "${GREETING}";
+}
