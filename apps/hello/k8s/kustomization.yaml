@@ -3,4 +3,4 @@ resources:
   - infisical-secret.yaml
 images:
   - name: ghcr.io/gavinfancher/hello
-    newTag: sha-128f35a
+    newTag: sha-a788dab
