@@ -8,6 +8,8 @@ kind: Deployment
 metadata:
   name: hello
   namespace: nginxtest
+  annotations:
+    secrets.infisical.com/auto-reload: "true"   # roll pods when hello-secrets changes
 spec:
   replicas: 3
   selector:
@@ -23,6 +25,12 @@ spec:
           image: ghcr.io/gavinfancher/hello:latest
           ports:
             - containerPort: 80
+          env:
+            - name: GREETING
+              valueFrom:
+                secretKeyRef:
+                  name: hello-secrets    # created by the InfisicalSecret
+                  key: GREETING
 ---
 apiVersion: v1
 kind: Service
