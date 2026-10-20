@@ -1,0 +1,17 @@
+# infisical secrets operator. watches InfisicalSecret resources and syncs secrets from
+# infisical cloud into normal k8s Secrets. it logs in with a machine identity whose
+# credentials live in the infisical-machine-identity secret in this namespace. create it
+# by hand, never commit it:
+#   kubectl -n infisical-operator-system create secret generic infisical-machine-identity \
+#     --from-literal=clientId=<id> --from-literal=clientSecret=<secret>
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: infisical-secrets-operator
+  namespace: kube-system      # k3s's helm controller watches this namespace
+spec:
+  repo: https://dl.cloudsmith.io/public/infisical/helm-charts/helm/charts/
+  chart: secrets-operator
+  version: 0.11.11
+  targetNamespace: infisical-operator-system
+  createNamespace: true
